@@ -96,10 +96,9 @@ database.ref().orderByChild("dateAdded").on("child_added", function (childSnapsh
 
 });
 
-function deleteRow() {
-  $(".row-" + $(this).attr("data-i")).remove();
-  database.ref().child($(this).attr("data-key")).remove();
-};
+$(document).on("click", ".remove-button", deleteRow);
+$(document).on("click", ".button-update", changeRow);
+$(document).on("click", ".submitButton", createRow);
 
 function changeRow() {
   $(".row-" + $(this).attr("data-i")).children().eq(1).html("<textarea class='newTrain'></textarea>");
@@ -107,6 +106,13 @@ function changeRow() {
   $(".row-" + $(this).attr("data-i")).children().eq(3).html("<textarea class='newFrequency' type='number'></textarea>");
   $(this).toggleClass("button-update").toggleClass("submitButton");
 };
+
+function deleteRow() {
+  $(".row-" + $(this).attr("data-i")).remove();
+  database.ref().child($(this).attr("data-key")).remove();
+};
+
+
 
 function createRow() {
   var newTrain = $(".newTrain").val().trim();
@@ -123,6 +129,3 @@ function createRow() {
   $(this).toggleClass("button-update").toggleClass("submitButton");
 };
 
-$(document).on("click", ".remove-button", deleteRow);
-$(document).on("click", ".button-update", changeRow);
-$(document).on("click", ".submitButton", createRow);
