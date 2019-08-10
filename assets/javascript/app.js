@@ -1,6 +1,6 @@
-var i = 0;//firebase 
+var i = 0; //firebase 
 
- var firebaseConfig = {
+var firebaseConfig = {
   apiKey: "AIzaSyDIqPnRluarxcdq1KNy-zsAqZP8qxHa8D4",
   authDomain: "train-scheduler-4ad55.firebaseapp.com",
   databaseURL: "https://train-scheduler-4ad55.firebaseio.com",
@@ -15,27 +15,27 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
 $("#form-information").on("submit", function (event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    var name = $("#train-name").val().trim();
-    var destination = $("#train-destination").val().trim();
-    var firstTime = $("#train-time").val().trim();
-    var frequency = $("#frequency").val().trim();
+  var name = $("#train-name").val().trim();
+  var destination = $("#train-destination").val().trim();
+  var firstTime = $("#train-time").val().trim();
+  var frequency = $("#frequency").val().trim();
 
-    database.ref().push({
-      name: name,
-      destination: destination,
-      firstTime: firstTime,
-      frequency: frequency
-    });
-
-    $("#train-name").val("");
-    $("#train-destination").val("");
-    $("#train-time").val("");
-    $("#frequency").val("");
-
-    return false;
+  database.ref().push({
+    name: name,
+    destination: destination,
+    firstTime: firstTime,
+    frequency: frequency
   });
+
+  $("#train-name").val("");
+  $("#train-destination").val("");
+  $("#train-time").val("");
+  $("#frequency").val("");
+
+  return false;
+});
 
 database.ref().orderByChild("dateAdded").on("child_added", function (childSnapshot) {
 
@@ -50,9 +50,9 @@ database.ref().orderByChild("dateAdded").on("child_added", function (childSnapsh
   var currT = moment();
   var timeCal = moment().subtract(1, "years");
   var diffTime = moment().diff(moment(trainNum), "minutes");
-  var tRemainder = diffTime%currentFre;
+  var tRemainder = diffTime % currentFre;
   var minCount = currentFre - tRemainder;
-  var nextTrain = moment().add(minCount, "minutes").format ("hh:mm A");
+  var nextTrain = moment().add(minCount, "minutes").format("hh:mm A");
   var btime = moment(trainNum).diff(timeCal, "minutes");
   var bmin = Math.ceil(moment.duration(btime).asMinutes());
 
@@ -60,8 +60,7 @@ database.ref().orderByChild("dateAdded").on("child_added", function (childSnapsh
     nextTrain = childSnapshot.val().firstTime;
     console.log("Before First Train");
     minCount = bmin;
-  }
-  else {
+  } else {
     nextTrain = moment().add(minCount, "minutes").format("hh:mm A");
     minCount = currentFre - tRemainder;
     // console.log("here");
@@ -87,29 +86,29 @@ database.ref().orderByChild("dateAdded").on("child_added", function (childSnapsh
     .append(cell6)
     .append(cell7);
 
- $("#tableContent").append(newRow);
+  $("#tableContent").append(newRow);
 
- i++;
-  
+  i++;
+
 }, function (error) {
 
   alert(error.code);
 
 });
 
-function deleteRow () {
+function deleteRow() {
   $(".row-" + $(this).attr("data-i")).remove();
   database.ref().child($(this).attr("data-key")).remove();
 };
 
-function changeRow () {
+function changeRow() {
   $(".row-" + $(this).attr("data-i")).children().eq(1).html("<textarea class='newTrain'></textarea>");
   $(".row-" + $(this).attr("data-i")).children().eq(2).html("<textarea class='newDestination'></textarea>");
   $(".row-" + $(this).attr("data-i")).children().eq(3).html("<textarea class='newFrequency' type='number'></textarea>");
   $(this).toggleClass("button-update").toggleClass("submitButton");
 };
 
-function createRow () {
+function createRow() {
   var newTrain = $(".newTrain").val().trim();
   var newDestination = $(".newDestination").val().trim();
   var newFrequency = $(".newFrequency").val().trim();
