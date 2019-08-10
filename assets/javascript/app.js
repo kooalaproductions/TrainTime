@@ -69,22 +69,22 @@ database.ref().orderByChild("dateAdded").on("child_added", function (childSnapsh
 
   var newRow = $("<tr>");
   newRow.addClass("row-" + i);
-  var cell1 = $("<td>").append(addButton);
-  var cell2 = $("<td>").text(childSnapshot.val().name);
-  var cell3 = $("<td>").text(childSnapshot.val().destination);
-  var cell4 = $("<td>").text(childSnapshot.val().frequency);
-  var cell5 = $("<td>").text(nextTrain);
-  var cell6 = $("<td>").text(minCount);
-  var cell7 = $("<td>").append(remove);
+  var num1 = $("<td>").append(addButton);
+  var num2 = $("<td>").text(childSnapshot.val().name);
+  var num3 = $("<td>").text(childSnapshot.val().destination);
+  var num4 = $("<td>").text(childSnapshot.val().frequency);
+  var num5 = $("<td>").text(nextTrain);
+  var num6 = $("<td>").text(minCount);
+  var num7 = $("<td>").append(remove);
 
   newRow
-    .append(cell1)
-    .append(cell2)
-    .append(cell3)
-    .append(cell4)
-    .append(cell5)
-    .append(cell6)
-    .append(cell7);
+    .append(num1)
+    .append(num2)
+    .append(num3)
+    .append(num4)
+    .append(num5)
+    .append(num6)
+    .append(num7);
 
   $("#tableContent").append(newRow);
 
